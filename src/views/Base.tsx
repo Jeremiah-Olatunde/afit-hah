@@ -11,6 +11,10 @@ export function Base({ children }: PropsWithChildren) {
 						content="width=device-width, initial-scale=1.0"
 					/>
 					<link rel="stylesheet" href="/public/output.css" />
+					<script
+						defer
+						src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"
+					></script>
 					<title>Hello JSX + Hono</title>
 				</head>
 				<body>{children}</body>
