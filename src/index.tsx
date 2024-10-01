@@ -3,7 +3,7 @@ import { serveStatic } from "hono/bun";
 import { jsxRenderer } from "hono/jsx-renderer";
 
 import { Base } from "./views/Base";
-import { Counter } from "./views/Counter";
+import { Login } from "./views/Login";
 
 const app = new Hono();
 
@@ -14,7 +14,7 @@ app.get("/public/*", serveStatic({ root: "./src" }));
 function Home() {
 	return (
 		<>
-			<Counter />
+			<Login />
 		</>
 	);
 }
