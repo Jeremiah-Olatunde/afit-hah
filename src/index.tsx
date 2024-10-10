@@ -4,28 +4,20 @@ import { jsxRenderer } from "hono/jsx-renderer";
 import { logger } from "hono/logger";
 
 import { Base } from "./views/Base";
-import { CounterCSR, CounterSSR } from "./views/Counter";
-import { Login } from "./views/Login";
+import { LoginForm, LoginPage, LoginSuccess } from "./views/Login";
 
 const app = new Hono();
 
-const inMemoryDB = { count: 0 };
-
 app.use(logger());
 app.get("/page/*", jsxRenderer(Base, { docType: "<!DOCTYPE html>" }));
-app.get("/page/home", (context) => context.render(<Home />));
 app.get("/public/*", serveStatic({ root: "./src" }));
 
-app.get("/htmx/counter", (context) => {
-	return context.html(<span>{inMemoryDB.count++}</span>);
-});
+app.get("/page/login", (context) => context.render(<LoginPage />));
 
-function Home() {
-	return (
-		<>
-			<CounterSSR start={inMemoryDB.count} />
-		</>
-	);
-}
+app.get("/forms/login", (context) => context.render(<LoginForm />));
+app.post("/forms/login", async (context) => {
+	console.log(await context.req.formData());
+	return context.render(<LoginSuccess />);
+});
 
 export default app;
