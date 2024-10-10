@@ -1,6 +1,7 @@
 import { Hono } from "hono";
 import { serveStatic } from "hono/bun";
 import { jsxRenderer } from "hono/jsx-renderer";
+import { logger } from "hono/logger";
 
 import { Base } from "./views/Base";
 import { CounterCSR, CounterSSR } from "./views/Counter";
@@ -10,6 +11,7 @@ const app = new Hono();
 
 const inMemoryDB = { count: 0 };
 
+app.use(logger());
 app.get("/page/*", jsxRenderer(Base, { docType: "<!DOCTYPE html>" }));
 app.get("/page/home", (context) => context.render(<Home />));
 app.get("/public/*", serveStatic({ root: "./src" }));
