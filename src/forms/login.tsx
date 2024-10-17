@@ -99,3 +99,35 @@ function validatePassword(value: string): FieldResult {
 		messages: parsed.error.issues.map(({ message }) => message),
 	};
 }
+
+type ValidationOk = {
+	status: "ok";
+	data: Message;
+};
+
+type ValidationErr = {
+	status: "error";
+	formErr: Record<"studentId" | "password", FieldResult>;
+};
+
+type ValidationResult = ValidationErr | ValidationOk;
+
+function validate({ studentId, password }: Message): ValidationResult {
+	const fieldStudentId = validateStudentId(studentId);
+	const fieldPassword = validatePassword(password);
+
+	if (fieldStudentId.status === "ok" && fieldPassword.status === "ok") {
+		return {
+			status: "ok",
+			data: { studentId, password },
+		};
+	}
+
+	return {
+		status: "error",
+		formErr: {
+			studentId: fieldStudentId,
+			password: fieldPassword,
+		},
+	};
+}
