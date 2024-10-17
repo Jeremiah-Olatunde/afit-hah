@@ -131,3 +131,25 @@ function validate({ studentId, password }: Message): ValidationResult {
 		},
 	};
 }
+
+function update(form: ValidationErr["formErr"]) {
+	return (
+		<form>
+			<label htmlFor="studentId">Student ID</label>
+			<input type="text" value={form.studentId.value} />
+			<ul>
+				{form.studentId.status === "error" &&
+					form.studentId.messages.map((message) => <li>{message}</li>)}
+			</ul>
+
+			<br />
+
+			<label htmlFor="password">Student ID</label>
+			<input type="text" value={form.password.value} />
+			<ul>
+				{form.password.status === "error" &&
+					form.password.messages.map((message) => <li>{message}</li>)}
+			</ul>
+		</form>
+	);
+}
