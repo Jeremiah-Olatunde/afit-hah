@@ -48,3 +48,16 @@ const Model = z
 	.strict();
 
 type Model = z.infer<typeof Model>;
+
+type FieldOk = {
+	status: "ok";
+	value: string;
+};
+
+type FieldErr = {
+	status: "error";
+	value: string;
+	messages: string[];
+};
+
+type FieldResult = FieldErr | FieldOk;
