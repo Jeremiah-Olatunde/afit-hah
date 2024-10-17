@@ -36,3 +36,15 @@ function toMessage(form: unknown): MessageResult {
 		data: parsed.data,
 	};
 }
+
+const Model = z
+	.object({
+		studentId: z
+			.string()
+			.length(10)
+			.regex(/^\d{10}$/, "Student ID must be 10 digits long"),
+		password: z.string().min(5),
+	})
+	.strict();
+
+type Model = z.infer<typeof Model>;
