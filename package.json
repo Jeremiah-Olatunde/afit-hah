@@ -7,7 +7,8 @@
     "tailwind:watch": "bunx tailwindcss --input ./src/index.css --output ./src/public/output.css --watch"
   },
   "dependencies": {
-    "hono": "^4.6.3"
+    "hono": "^4.6.3",
+    "zod": "^3.23.8"
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.3",
