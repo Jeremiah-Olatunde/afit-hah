@@ -61,3 +61,41 @@ type FieldErr = {
 };
 
 type FieldResult = FieldErr | FieldOk;
+
+function validateStudentId(value: Message["studentId"]): FieldResult {
+	const parsed = z
+		.string()
+		.length(10)
+		.regex(/^\d{10}$/, "Student ID must be 10 digits long")
+		.safeParse(value);
+
+	if (parsed.success) {
+		return {
+			status: "ok",
+			value,
+		};
+	}
+
+	return {
+		status: "error",
+		value,
+		messages: parsed.error.issues.map(({ message }) => message),
+	};
+}
+
+function validatePassword(value: string): FieldResult {
+	const parsed = z.string().min(5).safeParse(value);
+
+	if (parsed.success) {
+		return {
+			status: "ok",
+			value,
+		};
+	}
+
+	return {
+		status: "error",
+		value,
+		messages: parsed.error.issues.map(({ message }) => message),
+	};
+}
